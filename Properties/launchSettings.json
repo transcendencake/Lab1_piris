@@ -11,7 +11,7 @@
     "Lab1_piris": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:7003;http://localhost:5003",
+      "applicationUrl": "http://localhost:5003",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy"
