@@ -23,7 +23,7 @@ public class ClientModel
     public string? WorkingPosition { get; set; }
     public SelectedItemModel RegistrationCity { get; set; }
     public SelectedItemModel FamilyState { get; set; }
-    public SelectedItemModel Сitizenship { get; set; }
+    public SelectedItemModel Citizenship { get; set; }
     public SelectedItemModel Disability { get; set; }
     public bool Pensioner { get; set; }
     public decimal? MonthIncome { get; set; }

@@ -32,7 +32,7 @@ public class Client
     public long RegistrationCityId { get; set; }
     public FamilyState FamilyState { get; set; }
     public long FamilyStateId { get; set; }
-    public Сitizenship Сitizenship { get; set; }
+    public Citizenship Citizenship { get; set; }
     public long СitizenshipId { get; set; }
     public Disability Disability { get; set; }
     public long DisabilityId { get; set; }

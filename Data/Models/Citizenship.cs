@@ -1,6 +1,6 @@
 ﻿namespace Lab1_piris.Data.Models;
 
-public class Сitizenship: BaseListModel
+public class Citizenship: BaseListModel
 {
 
 }

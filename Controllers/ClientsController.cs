@@ -61,7 +61,7 @@ public class ClientsController : ControllerBase
         client.WorkingPosition = model.WorkingPosition;
         client.RegistrationCityId = model.RegistrationCity.Id;
         client.FamilyStateId = model.FamilyState.Id;
-        client.СitizenshipId = model.Сitizenship.Id;
+        client.СitizenshipId = model.Citizenship.Id;
         client.DisabilityId = model.Disability.Id;
         client.Pensioner = model.Pensioner;
         client.MonthIncome = model.MonthIncome;
@@ -118,10 +118,10 @@ public class ClientsController : ControllerBase
                     Id = p.FamilyState.Id,
                     Name = p.FamilyState.Name
                 },
-                Сitizenship = new SelectedItemModel
+                Citizenship = new SelectedItemModel
                 {
-                    Id = p.Сitizenship.Id,
-                    Name = p.Сitizenship.Name
+                    Id = p.Citizenship.Id,
+                    Name = p.Citizenship.Name
                 },
                 Disability = new SelectedItemModel
                 {

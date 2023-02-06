@@ -24,7 +24,7 @@ public class LookupsController : ControllerBase
         return new LookupsModel
         {
             Cities = await GetListLookups(dbContext.Cities),
-            Citizenships = await GetListLookups(dbContext.Сitizenship),
+            Citizenships = await GetListLookups(dbContext.Citizenship),
             Disabilities = await GetListLookups(dbContext.Disabilities),
             FamilyStates = await GetListLookups(dbContext.FamilyStates)
         };

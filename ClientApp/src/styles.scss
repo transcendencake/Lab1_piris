@@ -14,3 +14,21 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+.app-link {
+  color: hsla(209, 62%, 33%, 1);
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:hover {
+     color: hsla(209, 79%, 20%, 1);
+  }
+
+  &:active {
+     text-decoration: none;
+  }
+
+  &:focus {
+     outline: 1px solid hsla(197, 83%, 56%, 1);
+  }
+}
