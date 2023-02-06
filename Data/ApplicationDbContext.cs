@@ -14,4 +14,5 @@ public class ApplicationDbContext: DbContext
     public DbSet<Disability> Disabilities { get; set; }
     public DbSet<FamilyState> FamilyStates { get; set; }
     public DbSet<Client> Clients { get; set; }
+    public DbSet<Сitizenship> Сitizenship { get; set; }
 }
