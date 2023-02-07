@@ -135,7 +135,7 @@ namespace Lab1piris.Migrations
 
                     b.Property<string>("PassportSeries")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("Pensioner")
                         .HasColumnType("bit");
@@ -149,9 +149,6 @@ namespace Lab1piris.Migrations
                     b.Property<string>("WorkingPosition")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("СitizenshipId")
-                        .HasColumnType("bigint");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CitizenshipId");
@@ -162,7 +159,13 @@ namespace Lab1piris.Migrations
 
                     b.HasIndex("LivingCityId");
 
+                    b.HasIndex("PassportId")
+                        .IsUnique();
+
                     b.HasIndex("RegistrationCityId");
+
+                    b.HasIndex("PassportSeries", "PassportNumber")
+                        .IsUnique();
 
                     b.ToTable("Clients");
                 });

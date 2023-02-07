@@ -20,7 +20,11 @@ public class ClientsController : ControllerBase
     [HttpGet]
     public async Task<List<ClientModel>> Get()
     {
-        var result = await GetClientsFromDb().OrderBy(p => p.LastName).ToListAsync();
+        var result = await GetClientsFromDb()
+            .OrderBy(p => p.LastName)
+                .ThenBy(p => p.FirstName)
+                    .ThenBy(p => p.MiddleName)
+            .ToListAsync();
         return result;
     }
 
@@ -41,7 +45,6 @@ public class ClientsController : ControllerBase
             dbContext.Clients.Add(client);
         }
 
-        client.Id = model.Id;
         client.FirstName = model.FirstName;
         client.LastName = model.LastName;
         client.MiddleName = model.MiddleName;

@@ -35,5 +35,5 @@ interface IClientModel {
   citizenship: ISelectedItemModel;
   disability: ISelectedItemModel;
   pensioner: boolean;
-  monthIncome: number;
+  monthIncome?: number;
 }

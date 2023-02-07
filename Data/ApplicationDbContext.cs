@@ -10,6 +10,16 @@ public class ApplicationDbContext: DbContext
     {
     }
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Client>()
+            .HasIndex(p => new {p.PassportSeries, p.PassportNumber})
+            .IsUnique();
+        modelBuilder.Entity<Client>()
+            .HasIndex(p => p.PassportId)
+            .IsUnique();
+    }
+
     public DbSet<City> Cities { get; set; }
     public DbSet<Disability> Disabilities { get; set; }
     public DbSet<FamilyState> FamilyStates { get; set; }

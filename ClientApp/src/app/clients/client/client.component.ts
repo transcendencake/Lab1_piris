@@ -10,6 +10,7 @@ import { RouterParamsService } from '../../router-params.service';
   styleUrls: ['./client.component.scss']
 })
 export class ClientComponent implements OnInit {
+  public customPatterns = { 'F': { pattern: new RegExp('\[a-zA-Zа-яА-Я\]'), optional: true} }
   public lookUps?: ILookupsModel;
   public client?: IClientModel;
   public isCreateMode: boolean = false;
@@ -31,6 +32,50 @@ export class ClientComponent implements OnInit {
     if (!this.isCreateMode) {
       this.client = await firstValueFrom(this.http.get<IClientModel>(this.baseUrl + 'clients/' + clientId));
       console.log(this.client);
+    } else {
+      this.client = {
+        birthDate: new Date(),
+        birthPlace: "",
+        citizenship: {
+          id: 1,
+          name: ""
+        },
+        disability: {
+          id: 1,
+          name: ""
+        },
+        email: "",
+        familyState: {
+          id: 1,
+          name: ""
+        },
+        firstName: "",
+        homePhone: "",
+        id: 1,
+        isMale: false,
+        lastName: "",
+        livingAddress: "",
+        livingCity: {
+          id: 1,
+          name: ""
+        },
+        middleName: "",
+        mobilePhone: "",
+        monthIncome: undefined,
+        passportId: "",
+        passportIssuedAt: new Date(),
+        passportIssuedBy: "",
+        passportNumber: "",
+        passportSeries: "",
+        pensioner: false,
+        placeOfWork: "",
+        registrationCity: {
+          id: 1,
+          name: ""
+        },
+        workingPosition: ""
+
+      }
     }
   }
 
@@ -40,7 +85,8 @@ export class ClientComponent implements OnInit {
   }
 
   public async save(): Promise<void> {
-    const id = await firstValueFrom(this.http.put<number>(this.baseUrl + 'clients/' + this.params.clientId, this.client));
+    const id = await firstValueFrom(this.http.put<number>(this.baseUrl + 'clients/' + this.params.clientId, this.client))
+      .catch(p => alert('Вы попытались сломать систему. Соответствующая информация будет отправлена вашему непосредственному начальнику'));
     if (this.isCreateMode) {
       await this.router.navigateByUrl(`/clients/` + id);
     } else {

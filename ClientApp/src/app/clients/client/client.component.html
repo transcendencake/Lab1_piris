@@ -3,42 +3,48 @@
     <mat-form-field>
       <mat-label>Имя</mat-label>
       <input type="text"
-        matInput
-        required
-        name="firstName"
-        #firstNameNgModel="ngModel"
-        [(ngModel)]="client.firstName">
+             matInput
+             required
+             [patterns]="customPatterns"
+             mask="F{256}"
+             name="firstName"
+             #firstNameNgModel="ngModel"
+             [(ngModel)]="client.firstName">
       <mat-error *ngIf="firstNameNgModel.errors?.required">Это поле обязательно</mat-error>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Фамилия</mat-label>
       <input type="text"
-        matInput
-        required
-        name="lastName"
-        #lastNameNgModel="ngModel"
-        [(ngModel)]="client.lastName">
+             matInput
+             required
+             [patterns]="customPatterns"
+             mask="F{256}"
+             name="lastName"
+             #lastNameNgModel="ngModel"
+             [(ngModel)]="client.lastName">
       <mat-error *ngIf="lastNameNgModel.errors?.required">Это поле обязательно</mat-error>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Отчество</mat-label>
       <input type="text"
-        matInput
-        required
-        name="middleName"
-        #middleNameNgModel="ngModel"
-        [(ngModel)]="client.middleName">
+             matInput
+             required
+             [patterns]="customPatterns"
+             mask="F{256}"
+             name="middleName"
+             #middleNameNgModel="ngModel"
+             [(ngModel)]="client.middleName">
       <mat-error *ngIf="middleNameNgModel.errors?.required">Это поле обязательно</mat-error>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Дата рождения</mat-label>
       <input type="date"
-        matInput
-        required
-        name="birthDate"
-        #birthDateNgModel="ngModel"
-        [ngModel]="client.birthDate | date:'yyyy-MM-dd'"
-        (ngModelChange)="client.birthDate = $event">
+             matInput
+             required
+             name="birthDate"
+             #birthDateNgModel="ngModel"
+             [ngModel]="client.birthDate | date:'yyyy-MM-dd'"
+             (ngModelChange)="client.birthDate = $event">
       <mat-error *ngIf="birthDateNgModel.errors?.required">Это поле обязательно</mat-error>
     </mat-form-field>
     <mat-radio-group name="sex" [(ngModel)]="client.isMale">
@@ -51,43 +57,45 @@
     <mat-form-field>
       <mat-label>Серия паспорта</mat-label>
       <input type="text"
-        matInput
-        required
-        name="passportSeries"
-        #passportSeriesNgModel="ngModel"
-        [(ngModel)]="client.passportSeries">
+             matInput
+             required
+             [patterns]="customPatterns"
+             mask="F{3}"
+             name="passportSeries"
+             #passportSeriesNgModel="ngModel"
+             [(ngModel)]="client.passportSeries">
       <mat-error *ngIf="passportSeriesNgModel.errors?.required">Это поле обязательно</mat-error>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Номер паспорта</mat-label>
       <input type="text"
-        matInput
-        required
-        mask="0{7}"
-        name="passportNumber"
-        #passportNumberNgModel="ngModel"
-        [(ngModel)]="client.passportNumber">
+             matInput
+             required
+             mask="0{7}"
+             name="passportNumber"
+             #passportNumberNgModel="ngModel"
+             [(ngModel)]="client.passportNumber">
       <mat-error *ngIf="passportNumberNgModel.errors?.required">Это поле обязательно</mat-error>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Кем выдан</mat-label>
       <input type="text"
-        matInput
-        required
-        name="passportIssuedBy"
-        #passportIssuedByNgModel="ngModel"
-        [(ngModel)]="client.passportIssuedBy">
+             matInput
+             required
+             name="passportIssuedBy"
+             #passportIssuedByNgModel="ngModel"
+             [(ngModel)]="client.passportIssuedBy">
       <mat-error *ngIf="passportIssuedByNgModel.errors?.required">Это поле обязательно</mat-error>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Когда выдан</mat-label>
       <input type="date"
-        matInput
-        required
-        name="passportIssuedAt"
-        #passportIssuedAtNgModel="ngModel"
-        [ngModel]="client.passportIssuedAt | date:'yyyy-MM-dd'"
-        (ngModelChange)="client.passportIssuedAt = $event">
+             matInput
+             required
+             name="passportIssuedAt"
+             #passportIssuedAtNgModel="ngModel"
+             [ngModel]="client.passportIssuedAt | date:'yyyy-MM-dd'"
+             (ngModelChange)="client.passportIssuedAt = $event">
       <mat-error *ngIf="passportIssuedAtNgModel.errors?.required">Это поле обязательно</mat-error>
     </mat-form-field>
     <mat-form-field>
@@ -134,7 +142,7 @@
       <mat-label>Домашний телефон</mat-label>
       <input type="text"
              matInput
-             mask="0(000)000-00-00"
+             mask="(00)000-00-00"
              name="homePhone"
              #homePhoneNgModel="ngModel"
              [(ngModel)]="client.homePhone">
@@ -144,7 +152,7 @@
       <mat-label>Мобильный телефон</mat-label>
       <input type="text"
              matInput
-             mask="0(000)000-00-00"
+             mask="(00)000-00-00"
              name="mobilePhone"
              #mobilePhoneNgModel="ngModel"
              [(ngModel)]="client.mobilePhone">
@@ -159,29 +167,12 @@
              [(ngModel)]="client.email">
       <mat-error *ngIf="emailNgModel.errors?.required">Это поле обязательно</mat-error>
     </mat-form-field>
-    <mat-form-field>
-      <mat-label>Место работы</mat-label>
-      <input type="text"
-             matInput
-             name="placeOfWork"
-             #placeOfWorkNgModel="ngModel"
-             [(ngModel)]="client.placeOfWork">
-      <mat-error *ngIf="placeOfWorkNgModel.errors?.required">Это поле обязательно</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Должность</mat-label>
-      <input type="text"
-             matInput
-             name="workingPosition"
-             #workingPositionNgModel="ngModel"
-             [(ngModel)]="client.workingPosition">
-      <mat-error *ngIf="workingPositionNgModel.errors?.required">Это поле обязательно</mat-error>
-    </mat-form-field>
   </div>
   <div class="fields-container">
     <mat-form-field>
       <mat-label>Город прописки</mat-label>
-      <mat-select required name="registrationCity" #registrationCityNgModel="ngModel" [(ngModel)]="client.registrationCity.id">
+      <mat-select required name="registrationCity" #registrationCityNgModel="ngModel"
+                  [(ngModel)]="client.registrationCity.id">
         <mat-option *ngFor="let city of lookUps.cities" [value]="city.id">{{city.name}}</mat-option>
       </mat-select>
       <mat-error *ngIf="registrationCityNgModel.errors?.required">Это поле обязательно</mat-error>
@@ -208,6 +199,26 @@
       <mat-error *ngIf="disabilityNgModel.errors?.required">Это поле обязательно</mat-error>
     </mat-form-field>
     <mat-checkbox name="pensioner" [(ngModel)]="client.pensioner">Пенсионер</mat-checkbox>
+  </div>
+  <div class="fields-container">
+    <mat-form-field>
+      <mat-label>Место работы</mat-label>
+      <input type="text"
+             matInput
+             name="placeOfWork"
+             #placeOfWorkNgModel="ngModel"
+             [(ngModel)]="client.placeOfWork">
+      <mat-error *ngIf="placeOfWorkNgModel.errors?.required">Это поле обязательно</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Должность</mat-label>
+      <input type="text"
+             matInput
+             name="workingPosition"
+             #workingPositionNgModel="ngModel"
+             [(ngModel)]="client.workingPosition">
+      <mat-error *ngIf="workingPositionNgModel.errors?.required">Это поле обязательно</mat-error>
+    </mat-form-field>
     <mat-form-field>
       <mat-label>Ежемесячный доход</mat-label>
       <input type="number"
@@ -218,6 +229,7 @@
       <mat-error *ngIf="monthIncomeNgModel.errors?.required">Это поле обязательно</mat-error>
     </mat-form-field>
   </div>
-  <button *ngIf="!isCreateMode" mat-raised-button color="primary" [disabled]="!form.valid" (click)="save()">Сохранить</button>
+  <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="save()">Сохранить
+  </button>
   <button mat-raised-button color="warn" (click)="deleteClient()">Удалить</button>
 </form>
