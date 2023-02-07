@@ -32,7 +32,7 @@ interface IClientModel {
   workingPosition: string;
   registrationCity: ISelectedItemModel;
   familyState: ISelectedItemModel;
-  сitizenship: ISelectedItemModel;
+  citizenship: ISelectedItemModel;
   disability: ISelectedItemModel;
   pensioner: boolean;
   monthIncome: number;

@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { ClientsComponent } from './clients/clients/clients.component';
+import { ClientComponent } from './clients/client/client.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ClientsComponent } from './clients/clients/clients.component';
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    ClientsComponent
+    ClientsComponent,
+    ClientComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -28,6 +30,16 @@ import { ClientsComponent } from './clients/clients/clients.component';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
+      {
+        path: 'clients',
+        children: [
+          { path: '', pathMatch: 'full', component: ClientsComponent },
+          {
+            path: ':clientId',
+            component: ClientComponent
+          }
+        ]
+      },
     ])
   ],
   providers: [],

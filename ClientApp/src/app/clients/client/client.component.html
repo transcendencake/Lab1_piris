@@ -1,0 +1,18 @@
+<div class="app-mb-24 app-d-flex app-align-items-center">
+  <div class="app-h5 app-gray-60 app-label app-align-label-with-input">
+    Поле1:
+  </div>
+  <mat-form-field *ngIf="isEditable; else viewDescription">
+    <input type="text"
+      matInput
+      [required]="isFormValidationRequired"
+      name="description"
+      #descriptionNgModel="ngModel"
+      [(ngModel)]="changeOrder.description">
+    <mat-error *ngIf="descriptionNgModel.errors?.required">{{'THE_FIELD_IS_REQUIRED' |
+      appTranslate}}</mat-error>
+  </mat-form-field>
+</div>
+
+
+<button *ngIf="!isCreateMode" class="btn btn-primary" (click)="deleteClient()">Delete</button>

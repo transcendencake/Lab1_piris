@@ -18,15 +18,16 @@ public class ClientsController : ControllerBase
     }
 
     [HttpGet]
-    public Task<List<ClientModel>> Get()
+    public async Task<List<ClientModel>> Get()
     {
-        return GetClientsFromDb().ToListAsync();
+        var result = await GetClientsFromDb().OrderBy(p => p.LastName).ToListAsync();
+        return result;
     }
 
     [HttpGet("{clientId:long}")]
-    public Task<ClientModel> GetSubcontractById([FromRoute] long clientId)
+    public async Task<ClientModel> GetSubcontractById([FromRoute] long clientId)
     {
-        return GetClientsFromDb()
+        return await GetClientsFromDb()
             .FirstAsync(p => p.Id == clientId);
     }
 
@@ -61,7 +62,7 @@ public class ClientsController : ControllerBase
         client.WorkingPosition = model.WorkingPosition;
         client.RegistrationCityId = model.RegistrationCity.Id;
         client.FamilyStateId = model.FamilyState.Id;
-        client.СitizenshipId = model.Citizenship.Id;
+        client.CitizenshipId = model.Citizenship.Id;
         client.DisabilityId = model.Disability.Id;
         client.Pensioner = model.Pensioner;
         client.MonthIncome = model.MonthIncome;
@@ -70,7 +71,7 @@ public class ClientsController : ControllerBase
         return Ok(client.Id);
     }
 
-    [HttpDelete("{clientId:long}")]
+    [HttpPost("{clientId:long}/delete")]
     public async Task<IActionResult> DeleteClient([FromRoute] long clientId)
     {
         var client = await dbContext.Clients.FirstAsync(p => p.Id == clientId);

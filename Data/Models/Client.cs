@@ -33,7 +33,7 @@ public class Client
     public FamilyState FamilyState { get; set; }
     public long FamilyStateId { get; set; }
     public Citizenship Citizenship { get; set; }
-    public long СitizenshipId { get; set; }
+    public long CitizenshipId { get; set; }
     public Disability Disability { get; set; }
     public long DisabilityId { get; set; }
     public bool Pensioner { get; set; }
