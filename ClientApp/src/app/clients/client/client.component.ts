@@ -7,7 +7,7 @@ import { RouterParamsService } from '../../router-params.service';
 @Component({
   selector: 'app-client',
   templateUrl: './client.component.html',
-  styleUrls: ['./client.component.css']
+  styleUrls: ['./client.component.scss']
 })
 export class ClientComponent implements OnInit {
   public lookUps?: ILookupsModel;
@@ -30,11 +30,21 @@ export class ClientComponent implements OnInit {
     const clientId = this.params.clientId;
     if (!this.isCreateMode) {
       this.client = await firstValueFrom(this.http.get<IClientModel>(this.baseUrl + 'clients/' + clientId));
+      console.log(this.client);
     }
   }
 
   public async deleteClient(): Promise<void> {
     await firstValueFrom(this.http.post<void>(this.baseUrl + 'clients/' + this.params.clientId + '/delete', null));
     await this.router.navigateByUrl(`/clients`);
+  }
+
+  public async save(): Promise<void> {
+    const id = await firstValueFrom(this.http.put<number>(this.baseUrl + 'clients/' + this.params.clientId, this.client));
+    if (this.isCreateMode) {
+      await this.router.navigateByUrl(`/clients/` + id);
+    } else {
+      await this.refreshClient();
+    }
   }
 }

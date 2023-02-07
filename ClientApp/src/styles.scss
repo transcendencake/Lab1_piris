@@ -1,6 +1,541 @@
 /* You can add global styles to this file, and also import other style files */
 
 /* Provide sufficient contrast against white background */
+$warning-color: hsl(45, 100%, 37.5%);
+$blue-50: hsla(209, 62%, 33%, 1);
+$dark-blue-color: hsla(209, 79%, 20%, 1);
+$dark-blue-color-50: hsla(209, 62%, 33%, 1);
+$gray-100: hsla(194, 20%, 9%, 1);
+$light-blue-50: hsla(197, 100%, 46%, 1);
+$gray-60: hsla(225, 7%, 49%, 1);
+$gray-70: hsla(225, 11%, 29%, 1);
+$gray-30: hsla(0, 0%, 92%, 1);
+$accent-bg-color: hsla(198, 100%, 96%, 1);
+$accent-bg-disabled-color: hsla(197, 92%, 95%, 1);
+$input-fill-color: hsla(197, 20%, 98%, 1);
+$input-label-color: hsla(225, 6%, 65%, 1);
+$light-bg-color: hsla(0, 0%, 97%, 1);
+$success-color: hsla(165, 50%, 43%, 1);
+$error-color: hsla(0, 71%, 40%, 1);
+$accent-color: hsla(197, 100%, 42%, 1);
+$accent-light-color: hsla(197, 83%, 56%, 1);
+$gray-90: hsla(227, 9%, 16%, 1);
+
+
+$material-input-padding: 22.5px;
+
+.app-mb-40 {
+  margin-bottom: 40px;
+}
+
+.app-visible-important {
+  visibility: visible !important;
+}
+
+.app-hidden {
+  visibility: hidden;
+}
+
+.app-align-items-baseline {
+  align-items: baseline;
+}
+
+.app-pt-24 {
+  padding-top: 24px;
+}
+
+.app-pt-4 {
+  padding-top: 4px;
+}
+
+.app-d-block {
+  display: block;
+}
+
+.app-mr-8 {
+  margin-right: 8px;
+}
+
+.app-mb-44 {
+  margin-bottom: 44px;
+}
+
+.app-mt-6 {
+  margin-top: 6px;
+}
+
+.app-mt-8 {
+  margin-top: 8px;
+}
+
+.app-pointer-events-none {
+  pointer-events: none;
+}
+
+.app-position-relative {
+  position: relative;
+}
+
+.app-text-align-center {
+  text-align: center;
+}
+
+.app-text-align-right {
+  text-align: right;
+}
+
+.app-pr-24 {
+  padding-right: 24px;
+}
+
+.app-flex-grow-1 {
+  flex-grow: 1;
+}
+
+.app-mt-30 {
+  margin-top: 30px;
+}
+
+.app-mb-30 {
+  margin-bottom: 30px;
+}
+
+.app-mb-40 {
+  margin-bottom: 40px;
+}
+
+.app-mb-18 {
+  margin-bottom: 18px;
+}
+
+.app-mt-12 {
+  margin-top: 12px;
+}
+
+.app-mt-4 {
+  margin-top: 4px;
+}
+
+.app-d-inline-block {
+  display: inline-block;
+}
+
+.app-h-48 {
+  height: 48px;
+}
+
+.app-mb-16 {
+  margin-bottom: 16px;
+}
+
+.app-mb-12 {
+  margin-bottom: 12px;
+}
+
+.app-mb-8 {
+  margin-bottom: 8px;
+}
+
+.app-p-24 {
+  padding: 24px;
+}
+
+.app-pl-8 {
+  padding-left: 8px;
+}
+
+.app-pr-16 {
+  padding-right: 16px;
+}
+
+.app-mt-24 {
+  margin-top: 24px;
+}
+
+.app-pb-12 {
+  padding-bottom: 12px;
+}
+
+.app-pb-24 {
+  padding-bottom: 24px;
+}
+
+.app-pb-18 {
+  padding-bottom: 18px;
+}
+
+.app-mb-28 {
+  margin-bottom: 28px;
+}
+
+.app-mb-24 {
+  margin-bottom: 24px;
+}
+
+.app-mb-20 {
+  margin-bottom: 20px;
+}
+
+.app-pr-12 {
+  padding-right: 12px;
+}
+
+.app-pr-32 {
+  padding-right: 32px;
+}
+
+.app-opacity-1-important {
+  opacity: 1 !important;
+}
+
+.app-pr-4 {
+  padding-right: 4px;
+}
+
+.app-d-flex {
+  display: flex;
+}
+
+.app-pb-4 {
+  padding-bottom: 4px;
+}
+
+.w-36 {
+  width: 36px;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.app-p-32 {
+  padding: 32px;
+}
+
+.app-mt-20 {
+  margin-top: 20px;
+}
+
+.app-mr-12 {
+  margin-right: 12px;
+}
+
+.app-px-32 {
+  padding: 0 32px;
+}
+
+.app-align-items-start {
+  align-items: start;
+}
+
+.app-align-items-center {
+  align-items: center;
+}
+
+.app-justify-content-center {
+  justify-content: center;
+}
+
+.app-justify-content-between {
+  justify-content: space-between;
+}
+
+.app-flex-direction-column {
+  flex-direction: column;
+}
+
+.app-text-decoration-none {
+  text-decoration: none;
+}
+
+.app-text-decoration-underline {
+  text-decoration: underline;
+}
+
+.app-dashed-underline {
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 1px;
+}
+
+.app-font-weight-normal {
+  font-weight: normal;
+}
+
+.app-cursor-pointer {
+  cursor: pointer;
+}
+
+.app-form-hr {
+  width: 100%;
+  height: 1px;
+  background-color: $gray-30;
+  margin-top: 40px;
+  margin-bottom: 24px;
+}
+
+@mixin app-h5 {
+  font-style: normal;
+  font-weight: 500;
+  display: inline-block;
+  font-size: 15px;
+  line-height: 22px;
+  letter-spacing: 0.02em;
+}
+
+.app-h1 {
+  font-weight: 700;
+  font-style: normal;
+  display: inline-block;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: 0.3px;
+}
+
+.app-h2 {
+  font-style: normal;
+  font-weight: bold;
+  display: inline-block;
+  font-size: 20px;
+  line-height: 32px;
+  letter-spacing: 0.3px;
+}
+
+.app-h3 {
+  font-style: normal;
+  font-weight: 500;
+  display: inline-block;
+  font-size: 17px;
+  line-height: 25px;
+  letter-spacing: 0.01em;
+}
+
+.app-h3-sub {
+  font-style: normal;
+  font-weight: normal;
+  display: inline-block;
+  font-size: 17px;
+  line-height: 25px;
+  letter-spacing: 0.01em;
+}
+
+.app-h4 {
+  font-style: normal;
+  display: inline-block;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.015em;
+}
+
+.app-h5 {
+  @include app-h5;
+}
+
+@mixin appLinkFont {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 22px;
+  letter-spacing: 0.01em;
+}
+
+.app-link-font {
+  @include appLinkFont;
+}
+
+.app-link {
+  @include appLinkFont;
+  color: $blue-50;
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:hover {
+    color: $dark-blue-color;
+  }
+
+  &:active {
+    text-decoration: none;
+  }
+
+  &:focus {
+    outline: 1px solid $accent-light-color
+  }
+}
+
+@mixin app-body-text {
+  font-style: normal;
+  font-weight: normal;
+  display: inline-block;
+  font-size: 15px;
+  line-height: 22px;
+  letter-spacing: 0.01em;
+
+  .link-text {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+.app-body-text {
+  @include app-body-text;
+}
+
+.app-info {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.015em;
+}
+
+.app-uppercase {
+  font-style: normal;
+  font-weight: normal;
+  display: inline-block;
+  font-size: 15px;
+  line-height: 22px;
+  align-items: center;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.app-caption {
+  font-style: normal;
+  font-weight: 400;
+  display: inline-block;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.015em;
+}
+
+.app-success-color {
+  color: $success-color;
+}
+
+.app-error-color {
+  color: $error-color;
+}
+
+.app-gray-70 {
+  color: $gray-70;
+}
+
+.app-gray-30 {
+  color: $gray-30;
+}
+
+.app-gray-100 {
+  color: $gray-100;
+}
+
+.app-gray-90 {
+  color: $gray-90;
+}
+
+.app-gray-60 {
+  color: $gray-60;
+}
+
+.app-blue-50 {
+  color: $blue-50;
+}
+
+.app-input-label-color {
+  color: $input-label-color;
+}
+
+@mixin buttons-shape {
+  @include app-h5;
+  padding: 8px 16px;
+  min-width: 110px;
+  width: fit-content;
+  text-decoration: none;
+  border-radius: 4px;
+  border: none;
+  box-sizing: border-box;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.app-no-min-width {
+    min-width: unset;
+  }
+
+  mat-icon {
+    margin-right: 8px;
+    width: 24px;
+    height: 24px;
+    font-size: 24px;
+  }
+}
+
+.app-contained-button {
+  @include buttons-shape;
+  background-color: $blue-50;
+  color: white;
+  border: 3px solid $blue-50;
+
+  &:disabled {
+    background-color: hsla(218, 22%, 90%, 1);
+    color: hsl(217, 14%, 71%);
+    border: 3px solid hsla(218, 22%, 90%, 1);
+  }
+
+  &:not(:disabled) {
+    &:hover {
+      background-color: $accent-color;
+      cursor: pointer;
+      border: 3px solid $accent-color;
+    }
+
+    &:focus {
+      border: 3px solid $accent-light-color;
+    }
+
+    &:active {
+      background-color: hsla(209, 68%, 26%, 1);
+      border: 3px solid hsla(209, 68%, 26%, 1);
+    }
+  }
+}
+
+.app-text-align-right {
+  text-align: right;
+}
+
+.app-outlined-button {
+  @include buttons-shape;
+  background-color: white;
+  color: $blue-50;
+  border: 1px hsla(197, 100%, 46%, 0.5) solid;
+
+  &:disabled {
+    color: hsla(217, 74%, 14%, 0.4);
+    border: 1px solid hsla(217, 19%, 79%, 1);
+  }
+
+  &:not(:disabled) {
+    &:hover {
+      background-color: hsl(200, 86%, 97%);
+      border: 1px solid hsla(197, 100%, 46%, 0.5);
+      cursor: pointer;
+    }
+
+    &:focus {
+      outline: 1px hsla(197, 100%, 46%, 0.5) solid;
+      background-color: hsl(198, 92%, 95%);
+    }
+
+    &:active {
+      background-color: hsl(197, 86%, 86%);
+      border: 1px solid hsla(197, 100%, 46%, 0.5);
+    }
+  }
+}
+
 a {
   color: #0366d6;
 }
@@ -15,20 +550,67 @@ code {
   border-color: #1861ac;
 }
 
-.app-link {
-  color: hsla(209, 62%, 33%, 1);
-  cursor: pointer;
-  text-decoration: underline;
+.app-dialog-label {
+  width: 179px;
+}
 
-  &:hover {
-     color: hsla(209, 79%, 20%, 1);
-  }
+.app-label {
+  width: 235px;
+  min-width: 235px;
+}
 
-  &:active {
-     text-decoration: none;
-  }
+.app-align-label-with-input {
+  padding-bottom: 19px;
+}
 
-  &:focus {
-     outline: 1px solid hsla(197, 83%, 56%, 1);
+.app-align-label-with-toggle-group {
+  padding-top: 14px;
+}
+
+.app-join {
+  .app-separator:last-child {
+    display: none;
   }
 }
+
+.app-full-width {
+  width: 100%;
+}
+
+.app-centered-line {
+  display: flex;
+  align-items: center;
+}
+
+.app-jumbotron {
+  background-color: $light-bg-color;
+  padding: 12px;
+  box-sizing: border-box;
+  border-radius: 4px;
+
+  &.app-p-24 {
+    padding: 24px;
+  }
+}
+
+.app-breadcrumbs {
+  .app-breadcrumb-separator {
+    color: hsl(227, 5%, 67%);
+    margin: 0 4px;
+  }
+}
+
+.remove-pay-request-icon {
+  color: $dark-blue-color;
+}
+
+.expiration-date-past span {
+  color: hsla(0, 71%, 40%, 1);
+}
+
+.expiration-date-coming-soon span {
+  color: hsla(36, 100%, 31%, 1);
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

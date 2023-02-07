@@ -1,0 +1,22 @@
+.fields-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  mat-form-field {
+    margin-right: 8px;
+  }
+
+  mat-checkbox {
+    margin-right: 8px;
+    padding-bottom: 20px;
+  }
+}
+
+mat-radio-group {
+  padding-bottom: 10px;
+  mat-radio-button {
+    margin: 10px;
+  }
+}
+

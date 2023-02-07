@@ -1,7 +1,7 @@
 <ul>
   <li *ngFor="let client of clients">
-    <a class="app-link" (click)="goToClient(client.id)">{{client.lastName}}</a>
+    <a mat-button (click)="goToClient(client.id)">{{client.lastName}}</a>
   </li>
 </ul>
-<button class="btn btn-primary" (click)="goToClient(0)">Create</button>
+<button mat-raised-button (click)="goToClient(0)">Create</button>
 
