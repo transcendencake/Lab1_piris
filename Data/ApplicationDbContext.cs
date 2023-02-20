@@ -25,4 +25,10 @@ public class ApplicationDbContext: DbContext
     public DbSet<FamilyState> FamilyStates { get; set; }
     public DbSet<Client> Clients { get; set; }
     public DbSet<Citizenship> Citizenship { get; set; }
+    public DbSet<AccountType> AccountTypes { get; set; }
+    public DbSet<Account> Accounts { get; set; }
+    public DbSet<Currency> Currencies { get; set; }
+    public DbSet<DepositType> DepositTypes { get; set; }
+    public DbSet<Deposit> Deposits { get; set; }
+    public DbSet<Transaction> Transactions { get; set; }
 }
