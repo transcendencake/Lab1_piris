@@ -92,5 +92,6 @@ export class ClientComponent implements OnInit {
     } else {
       await this.refreshClient();
     }
+    alert('Клиент успешно сохранён');
   }
 }
