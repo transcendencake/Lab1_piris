@@ -10,9 +10,9 @@ public class Account
 
     public string Number { get; set; }
 
-    public long OwnerId { get; set; }
+    public long? OwnerId { get; set; }
 
-    public Client Owner { get; set; }
+    public Client? Owner { get; set; }
 
     public decimal Balance { get; set; }
 

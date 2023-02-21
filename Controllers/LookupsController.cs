@@ -1,4 +1,5 @@
-﻿using Lab1_piris.Data;
+﻿using Lab1_piris.ClientModels;
+using Lab1_piris.Data;
 using Lab1_piris.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +28,24 @@ public class LookupsController : ControllerBase
             Citizenships = await GetListLookups(dbContext.Citizenship),
             Disabilities = await GetListLookups(dbContext.Disabilities),
             FamilyStates = await GetListLookups(dbContext.FamilyStates)
+        };
+    }
+
+    [HttpGet("deposit")]
+    public async Task<DepositLookupsModel> GetDepositTypes()
+    {
+        return new DepositLookupsModel
+        {
+            DepositTypes = await dbContext.DepositTypes
+                .Select(p => new DepositTypeModel
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Percent = p.Percent,
+                    IsRecallable = p.IsRecallable
+                })
+                .ToListAsync(),
+            Currencies = await GetListLookups(dbContext.Currencies)
         };
     }
 

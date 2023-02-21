@@ -1,3 +1,4 @@
+using Lab1_piris.Controllers.Services;
 using Lab1_piris.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 var connectionString = builder.Configuration.GetConnectionString("DbConnectionString");
 builder.Services.AddDbContext<ApplicationDbContext>(x => x.UseSqlServer(connectionString));
+builder.Services.AddScoped<TransactionService>();
 
 var app = builder.Build();
 

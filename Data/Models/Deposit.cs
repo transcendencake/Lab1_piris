@@ -8,6 +8,8 @@ public class Deposit
 
     public long TypeId { get; set; }
 
+    public decimal Amount { get; set; }
+
     public DepositType Type { get; set; }
 
     public bool IsActive { get; set; }
