@@ -1,0 +1,28 @@
+<div>
+  <nav mat-tab-nav-bar>
+    <a mat-tab-link
+       [routerLink]="generalInfoLink"
+       routerLinkActive="active"
+       #rlaGeneralInfo="routerLinkActive"
+       [active]="rlaGeneralInfo.isActive">
+      <span>Инфо</span>
+    </a>
+    <a mat-tab-link
+       [routerLink]="accountsLink"
+       routerLinkActive="active"
+       #rlaAccounts="routerLinkActive"
+       [active]="rlaAccounts.isActive">
+      <span>Счета</span>
+    </a>
+    <ng-container *ngIf="!isCreateMode">
+      <a mat-tab-link
+         [routerLink]="depositsLink"
+         routerLinkActive="active"
+         #rlaDeposits="routerLinkActive"
+         [active]="rlaDeposits.isActive">
+        <span>Депозиты</span>
+      </a>
+    </ng-container>
+  </nav>
+</div>
+<router-outlet></router-outlet>

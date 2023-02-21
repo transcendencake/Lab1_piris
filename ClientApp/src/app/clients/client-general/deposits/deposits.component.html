@@ -1,0 +1,7 @@
+<h2>Депозиты:</h2>
+<ul>
+  <li *ngFor="let deposit of deposits">
+    <a mat-button (click)="goToDeposit(deposit.id)">{{deposit.name}}</a>
+  </li>
+</ul>
+<button mat-raised-button (click)="goToDeposit(0)">Добавить</button>

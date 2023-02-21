@@ -37,3 +37,12 @@ interface IClientModel {
   pensioner: boolean;
   monthIncome?: number;
 }
+
+interface IAccountModel {
+  number: string;
+  balance: number;
+  isOpen: boolean;
+  code: string;
+  name: string;
+  isActive: boolean;
+}

@@ -1,0 +1,21 @@
+<h2>Счета:</h2>
+<ul>
+  <table>
+    <tr>
+      <th>Номер</th>
+      <th>Тип</th>
+      <th>Код</th>
+      <th>Баланс</th>
+      <th>Активный/пассивный</th>
+      <th>Открыт?</th>
+    </tr>
+    <tr *ngFor="let account of accounts">
+      <td>{{account.number}}</td>
+      <td>{{account.name}}</td>
+      <td>{{account.code}}</td>
+      <td>{{account.balance}}</td>
+      <td>{{account.isActive ? 'Активный' : 'Пассивный'}}</td>
+      <td>{{account.isOpen ? '+' : '-'}}</td>
+    </tr>
+  </table>
+</ul>

@@ -23,6 +23,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { FormsModule } from '@angular/forms';
 import {MatRadioModule} from "@angular/material/radio";
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import { ClientGeneralComponent } from './clients/client-general/client-general.component';
+import {MatTabsModule} from "@angular/material/tabs";
+import { DepositsComponent } from './clients/client-general/deposits/deposits.component';
+import { DepositComponent } from './clients/client-general/deposits/deposit/deposit.component';
+import { AccountsComponent } from './clients/client-general/accounts/accounts.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +37,11 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     CounterComponent,
     FetchDataComponent,
     ClientsComponent,
-    ClientComponent
+    ClientComponent,
+    ClientGeneralComponent,
+    DepositsComponent,
+    DepositComponent,
+    AccountsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
@@ -48,7 +57,32 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
           {path: '', pathMatch: 'full', component: ClientsComponent},
           {
             path: ':clientId',
-            component: ClientComponent
+            component: ClientGeneralComponent,
+            children: [
+              {
+                path: 'general',
+                component: ClientComponent
+              },
+              {
+                path: 'accounts',
+                component: AccountsComponent
+              },
+              {
+                path: 'deposits',
+                children: [
+                  {
+                    path: '',
+                    pathMatch: 'full',
+                    component: DepositsComponent
+                  },
+                  {
+                    path: ':depositId',
+                    component: DepositComponent
+                  }
+                ]
+              },
+              { path: '', pathMatch: 'full', redirectTo: 'general' },
+            ]
           }
         ]
       },
@@ -63,7 +97,8 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     MatInputModule,
     MatToolbarModule,
     MatRadioModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatTabsModule
   ],
   providers: [{
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
