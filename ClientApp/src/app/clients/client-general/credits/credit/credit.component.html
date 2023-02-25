@@ -93,4 +93,12 @@
     <button mat-raised-button color="primary" (click)="close()">Закрыть
     </button>
   </ng-container>
+  <div *ngIf="!isCreateMode">
+    <h3>Расписание платежей:</h3>
+    <ul>
+      <li *ngFor="let item of calculateSchedule()">
+        {{item.date | date}} - {{item.amount}}
+      </li>
+    </ul>
+  </div>
 </form>

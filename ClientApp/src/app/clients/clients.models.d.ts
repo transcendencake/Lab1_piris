@@ -95,3 +95,8 @@ interface ICreditTypeModel extends ISelectedItemModel {
   percent: number;
   isDifferentiated: boolean;
 }
+
+interface IScheduleItem {
+  amount: number;
+  date: Date;
+}

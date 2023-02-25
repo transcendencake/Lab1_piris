@@ -76,4 +76,30 @@ export class CreditComponent implements OnInit {
     alert('Кредит закрыт.');
     await this.ngOnInit();
   }
+
+  public calculateSchedule(): IScheduleItem[] {
+    let monthPayment;
+    if (this.credit?.creditType?.isDifferentiated) {
+      monthPayment = this.credit.creditType.percent * this.credit.amount / 100;
+    } else {
+      // @ts-ignore
+      let i = this.credit.creditType.percent / 12 / 100;
+      // @ts-ignore
+      let k = (i * Math.pow((1 + i), this.credit.lengthInMonths)) / (Math.pow((1 + i), this.credit.lengthInMonths) - 1);
+      // @ts-ignore
+      monthPayment = k * this.credit.amount;
+    }
+    const result = [];
+    // @ts-ignore
+    for (let i = 0; i < this.credit.lengthInMonths; i++) {
+      result.push({
+        amount: monthPayment,
+        date: moment().add(i + 1, 'months').toDate()
+      });
+    }
+    if (this.credit?.creditType?.isDifferentiated) {
+      result[this.credit.lengthInMonths - 1].amount += this.credit.amount;
+    }
+    return result;
+  }
 }
