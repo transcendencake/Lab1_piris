@@ -1,0 +1,96 @@
+<form #form="ngForm" *ngIf="credit && lookUps">
+  <div class="row-flex">
+    <div>
+      <mat-form-field>
+        <mat-label>Номер контракта</mat-label>
+        <input type="text"
+               matInput
+               required
+               name="contractNumber"
+               #contractNumberNgModel="ngModel"
+               [(ngModel)]="credit.contractNumber">
+        <mat-error *ngIf="contractNumberNgModel.errors?.required">Это поле обязательно</mat-error>
+      </mat-form-field>
+
+      <div>
+        <mat-form-field>
+          <mat-label>Тип кредита</mat-label>
+          <mat-select required name="creditType" #creditTypeNgModel="ngModel" [(ngModel)]="credit.creditType">
+            <mat-option *ngFor="let type of lookUps.creditTypes" [value]="type">{{type.name}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="creditTypeNgModel.errors?.required">Это поле обязательно</mat-error>
+        </mat-form-field>
+        <ng-container *ngIf="credit.creditType">
+          <div>
+            <p>
+              <span>Процент: {{credit.creditType.percent}}%, </span>
+              <span>{{credit.creditType.isDifferentiated ? 'Дифферинцированный' : 'Аннуитетный платёж'}}</span>
+            </p>
+          </div>
+        </ng-container>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Сумма</mat-label>
+          <input type="number"
+                 matInput
+                 required
+                 name="amount"
+                 #amountNgModel="ngModel"
+                 [(ngModel)]="credit.amount">
+          <mat-error *ngIf="amountNgModel.errors?.required">Это поле обязательно</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Валюта</mat-label>
+          <mat-select required name="currencyType" #currencyTypeNgModel="ngModel" [(ngModel)]="credit.currencyType.id">
+            <mat-option *ngFor="let currency of lookUps.currencies" [value]="currency.id">{{currency.name}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="currencyTypeNgModel.errors?.required">Это поле обязательно</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Срок</mat-label>
+          <mat-select required name="timeSpan" #timeSpanNgModel="ngModel" [(ngModel)]="credit.lengthInMonths" (ngModelChange)="updateDates()">
+            <mat-option [value]="3">3 месяца</mat-option>
+            <mat-option [value]="6">6 месяцев</mat-option>
+            <mat-option [value]="12">12 месяцев</mat-option>
+          </mat-select>
+          <mat-error *ngIf="timeSpanNgModel.errors?.required">Это поле обязательно</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        Дата начала: {{credit.startDate | date}}
+      </div>
+      <div>
+        Дата окончания: {{credit.endDate | date}}
+      </div>
+    </div>
+    <div *ngIf="!isCreateMode" style="padding: 10px">
+      <div>
+        Дата следующего платежа: {{credit.nextInterestPayDate | date}}
+      </div>
+      <div>
+        Аккаунт кредита: {{credit.depositAccount && credit.depositAccount.name}}
+      </div>
+      <div>
+        {{credit.isActive ? 'Активен' : 'Закрыт'}}
+      </div>
+      <div>
+        Аккаунт процентов: {{credit.interestAccount && credit.interestAccount.name}}
+      </div>
+    </div>
+  </div>
+
+  <button *ngIf="isCreateMode" mat-raised-button color="primary" [disabled]="!form.valid " (click)="save()">Сохранить
+  </button>
+
+  <ng-container *ngIf="!isCreateMode && credit.isActive">
+    <button mat-raised-button color="primary" (click)="payInterest()">Начислить проценты
+    </button>
+    <button mat-raised-button color="primary" (click)="close()">Закрыть
+    </button>
+  </ng-container>
+</form>

@@ -15,6 +15,11 @@ interface IDepositLookupsModel {
   depositTypes: IDepositTypeModel[];
 }
 
+interface ICreditLookupsModel {
+  currencies: ISelectedItemModel[];
+  creditTypes: ICreditTypeModel[];
+}
+
 interface IClientModel {
   id: number;
   firstName: string;
@@ -69,4 +74,24 @@ interface IDepositModel {
 interface IDepositTypeModel extends ISelectedItemModel {
   percent: number;
   isRecallable: boolean;
+}
+
+interface ICreditModel {
+  id: number;
+  contractNumber: string;
+  creditType?: ICreditTypeModel;
+  currencyType: ISelectedItemModel;
+  isActive: boolean;
+  amount: number;
+  startDate: Date;
+  endDate: Date;
+  lengthInMonths: number;
+  nextInterestPayDate?: Date;
+  depositAccount?: ISelectedItemModel;
+  interestAccount?: ISelectedItemModel;
+}
+
+interface ICreditTypeModel extends ISelectedItemModel {
+  percent: number;
+  isDifferentiated: boolean;
 }

@@ -230,6 +230,89 @@ namespace Lab1piris.Migrations
                     b.ToTable("Clients");
                 });
 
+            modelBuilder.Entity("Lab1_piris.Data.Models.Credit", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ContractNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("CurrencyId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("DepositAccountId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("InterestAccountId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("LengthInMonths")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("NextInterestPayDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("OwnerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("TypeId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CurrencyId");
+
+                    b.HasIndex("DepositAccountId");
+
+                    b.HasIndex("InterestAccountId");
+
+                    b.HasIndex("OwnerId");
+
+                    b.HasIndex("TypeId");
+
+                    b.ToTable("Credits");
+                });
+
+            modelBuilder.Entity("Lab1_piris.Data.Models.CreditType", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<bool>("IsDifferentiated")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Percent")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CreditTypes");
+                });
+
             modelBuilder.Entity("Lab1_piris.Data.Models.Currency", b =>
                 {
                     b.Property<long>("Id")
@@ -446,6 +529,49 @@ namespace Lab1piris.Migrations
                     b.Navigation("LivingCity");
 
                     b.Navigation("RegistrationCity");
+                });
+
+            modelBuilder.Entity("Lab1_piris.Data.Models.Credit", b =>
+                {
+                    b.HasOne("Lab1_piris.Data.Models.Currency", "Currency")
+                        .WithMany()
+                        .HasForeignKey("CurrencyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Lab1_piris.Data.Models.Account", "DepositAccount")
+                        .WithMany()
+                        .HasForeignKey("DepositAccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Lab1_piris.Data.Models.Account", "InterestAccount")
+                        .WithMany()
+                        .HasForeignKey("InterestAccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Lab1_piris.Data.Models.Client", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Lab1_piris.Data.Models.CreditType", "Type")
+                        .WithMany()
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Currency");
+
+                    b.Navigation("DepositAccount");
+
+                    b.Navigation("InterestAccount");
+
+                    b.Navigation("Owner");
+
+                    b.Navigation("Type");
                 });
 
             modelBuilder.Entity("Lab1_piris.Data.Models.Deposit", b =>

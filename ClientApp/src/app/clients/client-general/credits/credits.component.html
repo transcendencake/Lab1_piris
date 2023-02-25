@@ -1,0 +1,7 @@
+<h2>Кредиты:</h2>
+<ul>
+  <li *ngFor="let credit of credits">
+    <a mat-button (click)="goToCredit(credit.id)">{{credit.name}}</a>
+  </li>
+</ul>
+<button mat-raised-button (click)="goToCredit(0)">Добавить</button>

@@ -149,7 +149,7 @@ public class ClientsController : ControllerBase
             .Include(p => p.DepositAccount)
             .FirstAsync(p => p.Id == depositId);
         var addedAmount = deposit.DepositAccount.Balance * deposit.Type.Percent / 100;
-        var bankAccount = dbContext.Accounts
+        var bankAccount = await dbContext.Accounts
             .FirstAsync(p => p.AccountType.AccountTypeEnum == AccountTypeEnum.BankDevelopmentFund);
         transactionService.CreateTransaction(dbContext, bankAccount.Id, deposit.InterestAccount.Id, addedAmount);
         await dbContext.SaveChangesAsync();
@@ -219,6 +219,155 @@ public class ClientsController : ControllerBase
         transactionService.CreateTransaction(dbContext, cashboxAccount.Id, deposit.DepositAccountId, deposit.Amount);
         await dbContext.SaveChangesAsync();
         return Ok(deposit.Id);
+    }
+
+    [HttpGet("{clientId:long}/credit")]
+    public async Task<IEnumerable<SelectedItemModel>> GetCredits([FromRoute] long clientId)
+    {
+        return await dbContext.Credits
+            .Where(p => p.OwnerId == clientId)
+            .Select(p => new SelectedItemModel
+            {
+                Id = p.Id,
+                Name = p.Owner.LastName + " " + p.Id
+            })
+            .ToListAsync();
+    }
+
+    [HttpGet("{clientId:long}/credit/{creditId:long}")]
+    public async Task<CreditModel> GetCredit([FromRoute] long clientId, [FromRoute] long creditId)
+    {
+        return await dbContext.Credits
+            .Where(p => p.OwnerId == clientId)
+            .Select(p => new CreditModel
+            {
+                Id = p.Id,
+                Amount = p.Amount,
+                ContractNumber = p.ContractNumber,
+                CurrencyType = new SelectedItemModel
+                {
+                    Id = p.Currency.Id,
+                    Name = p.Currency.Name
+                },
+                NextInterestPayDate = p.NextInterestPayDate,
+                EndDate = p.EndDate,
+                StartDate = p.StartDate,
+                LengthInMonths = p.LengthInMonths,
+                IsActive = p.IsActive,
+                CreditType = new CreditTypeModel
+                {
+                    Id = p.Type.Id,
+                    Name = p.Type.Name,
+                    Percent = p.Type.Percent,
+                    IsDifferentiated = p.Type.IsDifferentiated
+                },
+                DepositAccount = new SelectedItemModel
+                {
+                    Id = p.DepositAccount.Id,
+                    Name = p.DepositAccount.Number
+                },
+                InterestAccount = new SelectedItemModel
+                {
+                    Id = p.InterestAccount.Id,
+                    Name = p.InterestAccount.Number
+                }
+            })
+            .FirstAsync(p => p.Id == creditId);
+    }
+
+    [HttpPost("{clientId:long}/credit/{creditId:long}/pay-interest")]
+    public async Task PayCreditInterest([FromRoute] long clientId, [FromRoute] long creditId)
+    {
+        var credit = await dbContext.Credits
+            .Include(p => p.Type)
+            .Include(p => p.InterestAccount)
+            .Include(p => p.DepositAccount)
+            .FirstAsync(p => p.Id == creditId);
+        decimal percentsAmount;
+        if (credit.Type.IsDifferentiated)
+        {
+            percentsAmount = credit.Amount * credit.Type.Percent / 100;
+        }
+        else
+        {
+            var i = credit.Type.Percent / 12;
+            var k = (double) i * Math.Pow((double) (1 + i), credit.LengthInMonths) / (Math.Pow((double) (1 + i), credit.LengthInMonths) - 1);
+            percentsAmount = (decimal)k * credit.Amount;
+        }
+        var bankAccount = await dbContext.Accounts
+            .FirstAsync(p => p.AccountType.AccountTypeEnum == AccountTypeEnum.BankDevelopmentFund);
+        var cashboxAccount = await dbContext.Accounts
+            .FirstAsync(p => p.AccountType.AccountTypeEnum == AccountTypeEnum.BankCashbox);
+        transactionService.CreateTransaction(dbContext, cashboxAccount.Id, percentsAmount);
+        transactionService.CreateTransaction(dbContext, cashboxAccount.Id, credit.InterestAccount.Id, percentsAmount);
+        transactionService.CreateTransaction(dbContext, credit.InterestAccount.Id, bankAccount.Id, percentsAmount);
+        await dbContext.SaveChangesAsync();
+    }
+
+    [HttpPost("{clientId:long}/credit/{creditId:long}/close")]
+    public async Task CloseCredit([FromRoute] long clientId, [FromRoute] long creditId)
+    {
+        var credit = await dbContext.Credits
+            .Include(p => p.Type)
+            .Include(p => p.InterestAccount)
+            .Include(p => p.DepositAccount)
+            .FirstAsync(p => p.Id == creditId);
+        var cashboxAccount = await dbContext.Accounts
+            .FirstAsync(p => p.AccountType.AccountTypeEnum == AccountTypeEnum.BankCashbox);
+        var bankAccount = await dbContext.Accounts
+            .FirstAsync(p => p.AccountType.AccountTypeEnum == AccountTypeEnum.BankDevelopmentFund);
+        var creditPaymentLeft = credit.Amount - credit.DepositAccount.Balance;
+        transactionService.CreateTransaction(dbContext, cashboxAccount.Id, creditPaymentLeft);
+        transactionService.CreateTransaction(dbContext, cashboxAccount.Id, credit.DepositAccount.Id, creditPaymentLeft);
+        transactionService.CreateTransaction(dbContext, credit.DepositAccount.Id, bankAccount.Id, credit.Amount);
+        credit.IsActive = false;
+        credit.DepositAccount.IsOpen = false;
+        credit.InterestAccount.IsOpen = false;
+        await dbContext.SaveChangesAsync();
+    }
+
+    [HttpPost("{clientId:long}/credit")]
+    public async Task<IActionResult> CreateCredit([FromRoute] long clientId, [FromBody] CreditModel model)
+    {
+        var accountType = await dbContext.AccountTypes
+            .FirstAsync(p => p.AccountTypeEnum == AccountTypeEnum.IndividualCredit);
+        var credit = new Credit
+        {
+            Amount = model.Amount,
+            CurrencyId = model.CurrencyType.Id,
+            ContractNumber = model.ContractNumber,
+            NextInterestPayDate = model.StartDate.AddMonths(1),
+            StartDate = model.StartDate,
+            LengthInMonths = model.LengthInMonths,
+            EndDate = model.EndDate ?? new DateTime(),
+            OwnerId = clientId,
+            TypeId = model.CreditType.Id,
+            IsActive = true,
+            DepositAccount = new Account
+            {
+                Balance = 0,
+                Number = GenerateAcountNumber(),
+                OwnerId = clientId,
+                AccountTypeId = accountType.Id,
+                IsOpen = true
+            },
+            InterestAccount = new Account
+            {
+                Balance = 0,
+                Number = GenerateAcountNumber(),
+                OwnerId = clientId,
+                AccountTypeId = accountType.Id,
+                IsOpen = true
+            }
+        };
+        dbContext.Credits.Add(credit);
+        await dbContext.SaveChangesAsync();
+
+        var bankAccount = await dbContext.Accounts
+            .FirstAsync(p => p.AccountType.AccountTypeEnum == AccountTypeEnum.BankDevelopmentFund);
+        transactionService.CreateTransaction(dbContext, bankAccount.Id, credit.DepositAccountId, credit.Amount);
+        await dbContext.SaveChangesAsync();
+        return Ok(credit.Id);
     }
 
     private string GenerateAcountNumber()

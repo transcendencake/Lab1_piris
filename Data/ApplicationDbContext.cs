@@ -30,5 +30,7 @@ public class ApplicationDbContext: DbContext
     public DbSet<Currency> Currencies { get; set; }
     public DbSet<DepositType> DepositTypes { get; set; }
     public DbSet<Deposit> Deposits { get; set; }
+    public DbSet<CreditType> CreditTypes { get; set; }
+    public DbSet<Credit> Credits { get; set; }
     public DbSet<Transaction> Transactions { get; set; }
 }

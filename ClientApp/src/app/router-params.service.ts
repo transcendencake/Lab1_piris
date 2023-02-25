@@ -4,6 +4,7 @@ import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 export interface IStateParams {
     clientId?: number;
     depositId?: number;
+    creditId?: number;
 }
 
 @Injectable({
@@ -16,6 +17,10 @@ export class RouterParamsService {
 
     public get clientId(): number | undefined {
         return this.params.clientId;
+    }
+
+    public get creditId(): number | undefined {
+        return this.params.creditId;
     }
 
     public get depositId(): number | undefined {
@@ -36,6 +41,7 @@ export class RouterParamsService {
 
         params.clientId = this.resolveAsNumber(params.clientId);
         params.depositId = this.resolveAsNumber(params.depositId);
+        params.creditId = this.resolveAsNumber(params.creditId);
 
         return params;
     }

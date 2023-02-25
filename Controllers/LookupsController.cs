@@ -49,6 +49,24 @@ public class LookupsController : ControllerBase
         };
     }
 
+    [HttpGet("credit")]
+    public async Task<CreditLookupsModel> GetCreditTypes()
+    {
+        return new CreditLookupsModel
+        {
+            CreditTypes = await dbContext.CreditTypes
+                .Select(p => new CreditTypeModel
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Percent = p.Percent,
+                    IsDifferentiated = p.IsDifferentiated
+                })
+                .ToListAsync(),
+            Currencies = await GetListLookups(dbContext.Currencies)
+        };
+    }
+
     private Task<List<SelectedItemModel>> GetListLookups<T>(DbSet<T> dbSet) where T : BaseListModel
     {
         return dbSet.Select(p => new SelectedItemModel

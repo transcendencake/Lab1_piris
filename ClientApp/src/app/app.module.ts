@@ -28,6 +28,8 @@ import {MatTabsModule} from "@angular/material/tabs";
 import { DepositsComponent } from './clients/client-general/deposits/deposits.component';
 import { DepositComponent } from './clients/client-general/deposits/deposit/deposit.component';
 import { AccountsComponent } from './clients/client-general/accounts/accounts.component';
+import { CreditsComponent } from './clients/client-general/credits/credits.component';
+import { CreditComponent } from './clients/client-general/credits/credit/credit.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { AccountsComponent } from './clients/client-general/accounts/accounts.co
     ClientGeneralComponent,
     DepositsComponent,
     DepositComponent,
-    AccountsComponent
+    AccountsComponent,
+    CreditsComponent,
+    CreditComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
@@ -78,6 +82,20 @@ import { AccountsComponent } from './clients/client-general/accounts/accounts.co
                   {
                     path: ':depositId',
                     component: DepositComponent
+                  }
+                ]
+              },
+              {
+                path: 'credits',
+                children: [
+                  {
+                    path: '',
+                    pathMatch: 'full',
+                    component: CreditsComponent
+                  },
+                  {
+                    path: ':creditId',
+                    component: CreditComponent
                   }
                 ]
               },
