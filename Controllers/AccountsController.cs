@@ -1,4 +1,5 @@
 ﻿using Lab1_piris.ClientModels;
+using Lab1_piris.Controllers.Services;
 using Lab1_piris.Data;
 using Lab1_piris.Data.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -12,11 +13,13 @@ public class AccountsController : ControllerBase
 {
     private readonly ILogger<AccountsController> logger;
     private readonly ApplicationDbContext dbContext;
+    private readonly TransactionService transactionService;
 
-    public AccountsController(ILogger<AccountsController> logger, ApplicationDbContext dbContext)
+    public AccountsController(ILogger<AccountsController> logger, ApplicationDbContext dbContext, TransactionService transactionService)
     {
         this.logger = logger;
         this.dbContext = dbContext;
+        this.transactionService = transactionService;
     }
 
     [HttpGet]
@@ -33,5 +36,11 @@ public class AccountsController : ControllerBase
                 IsOpen = p.IsOpen
             })
             .ToListAsync();
+    }
+
+    [HttpPost("close-day")]
+    public async Task CloseDay()
+    {
+        await transactionService.CommitTransactions();
     }
 }

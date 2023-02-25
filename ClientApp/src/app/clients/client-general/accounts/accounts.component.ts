@@ -20,4 +20,9 @@ export class AccountsComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.accounts = await firstValueFrom(this.http.get<IAccountModel[]>(this.baseUrl + 'accounts'));
   }
+
+  async closeDay() {
+    await firstValueFrom(this.http.post<void>(this.baseUrl + 'accounts/close-day', null));
+    await this.ngOnInit();
+  }
 }

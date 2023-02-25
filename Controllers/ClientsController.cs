@@ -151,7 +151,8 @@ public class ClientsController : ControllerBase
         var addedAmount = deposit.DepositAccount.Balance * deposit.Type.Percent / 100;
         var bankAccount = dbContext.Accounts
             .FirstAsync(p => p.AccountType.AccountTypeEnum == AccountTypeEnum.BankDevelopmentFund);
-        await transactionService.CreateTransaction(bankAccount.Id, deposit.InterestAccount.Id, addedAmount);
+        transactionService.CreateTransaction(dbContext, bankAccount.Id, deposit.InterestAccount.Id, addedAmount);
+        await dbContext.SaveChangesAsync();
     }
 
     [HttpPost("{clientId:long}/deposit/{depositId:long}/close")]
@@ -162,17 +163,18 @@ public class ClientsController : ControllerBase
             .Include(p => p.InterestAccount)
             .Include(p => p.DepositAccount)
             .FirstAsync(p => p.Id == depositId);
-        var cashboxAccount = dbContext.Accounts
+        var cashboxAccount = await dbContext.Accounts
             .FirstAsync(p => p.AccountType.AccountTypeEnum == AccountTypeEnum.BankCashbox);
         var depositAmount = deposit.DepositAccount.Balance;
         var interestAmount = deposit.InterestAccount.Balance;
-        await transactionService.CreateTransaction(deposit.InterestAccount.Id, cashboxAccount.Id, depositAmount);
-        await transactionService.CreateTransaction(cashboxAccount.Id, -depositAmount);
-        await transactionService.CreateTransaction(deposit.DepositAccount.Id, cashboxAccount.Id, interestAmount);
-        await transactionService.CreateTransaction(cashboxAccount.Id, -interestAmount);
+        transactionService.CreateTransaction(dbContext, deposit.InterestAccount.Id, cashboxAccount.Id, interestAmount);
+        transactionService.CreateTransaction(dbContext, cashboxAccount.Id, -depositAmount);
+        transactionService.CreateTransaction(dbContext, deposit.DepositAccount.Id, cashboxAccount.Id, depositAmount);
+        transactionService.CreateTransaction(dbContext, cashboxAccount.Id, -interestAmount);
         deposit.IsActive = false;
         deposit.DepositAccount.IsOpen = false;
         deposit.InterestAccount.IsOpen = false;
+        await dbContext.SaveChangesAsync();
     }
 
     [HttpPost("{clientId:long}/deposit")]
@@ -187,7 +189,7 @@ public class ClientsController : ControllerBase
             ContractNumber = model.ContractNumber,
             NextInterestPayDate = model.StartDate.AddMonths(1),
             StartDate = model.StartDate,
-            EndDate = model.EndDate,
+            EndDate = model.EndDate ?? new DateTime(),
             OwnerId = clientId,
             TypeId = model.DepositType.Id,
             IsActive = true,
@@ -213,8 +215,9 @@ public class ClientsController : ControllerBase
 
         var cashboxAccount = await dbContext.Accounts
             .FirstAsync(p => p.AccountType.AccountTypeEnum == AccountTypeEnum.BankCashbox);
-        await transactionService.CreateTransaction(cashboxAccount.Id, deposit.Amount);
-        await transactionService.CreateTransaction(cashboxAccount.Id, deposit.DepositAccountId, deposit.Amount);
+        transactionService.CreateTransaction(dbContext, cashboxAccount.Id, deposit.Amount);
+        transactionService.CreateTransaction(dbContext, cashboxAccount.Id, deposit.DepositAccountId, deposit.Amount);
+        await dbContext.SaveChangesAsync();
         return Ok(deposit.Id);
     }
 

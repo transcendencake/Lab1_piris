@@ -18,7 +18,7 @@ export class DepositsComponent implements OnInit {
               @Inject('BASE_URL') private baseUrl: string) { }
 
   async ngOnInit(): Promise<void> {
-    this.deposits = await firstValueFrom(this.http.get<ISelectedItemModel[]>(this.baseUrl + 'clients/' + this.params.clientId + 'deposits'));
+    this.deposits = await firstValueFrom(this.http.get<ISelectedItemModel[]>(this.baseUrl + 'clients/' + this.params.clientId + '/deposit'));
   }
 
   async goToDeposit(id: number): Promise<void> {

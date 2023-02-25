@@ -9,8 +9,8 @@ public class DepositModel
     public bool IsActive { get; set; }
     public decimal Amount { get; set; }
     public DateTime StartDate { get; set; }
-    public DateTime EndDate { get; set; }
-    public DateTime NextInterestPayDate { get; set; }
-    public SelectedItemModel DepositAccount { get; set; }
-    public SelectedItemModel InterestAccount { get; set; }
+    public DateTime? EndDate { get; set; }
+    public DateTime? NextInterestPayDate { get; set; }
+    public SelectedItemModel? DepositAccount { get; set; }
+    public SelectedItemModel? InterestAccount { get; set; }
 }

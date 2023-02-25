@@ -255,6 +255,9 @@ namespace Lab1piris.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("ContractNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

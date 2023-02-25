@@ -10,6 +10,11 @@ interface ILookupsModel {
   citizenships: ISelectedItemModel[];
 }
 
+interface IDepositLookupsModel {
+  currencies: ISelectedItemModel[];
+  depositTypes: IDepositTypeModel[];
+}
+
 interface IClientModel {
   id: number;
   firstName: string;
@@ -45,4 +50,23 @@ interface IAccountModel {
   code: string;
   name: string;
   isActive: boolean;
+}
+
+interface IDepositModel {
+  id: number;
+  contractNumber: string;
+  depositType?: IDepositTypeModel;
+  currencyType: ISelectedItemModel;
+  isActive: boolean;
+  amount: number;
+  startDate: Date;
+  endDate: Date;
+  nextInterestPayDate?: Date;
+  depositAccount?: ISelectedItemModel;
+  interestAccount?: ISelectedItemModel;
+}
+
+interface IDepositTypeModel extends ISelectedItemModel {
+  percent: number;
+  isRecallable: boolean;
 }

@@ -6,13 +6,13 @@ namespace Lab1_piris.Controllers.Services;
 
 public class TransactionService
 {
-    private readonly ApplicationDbContext dbContext;
+    private readonly ApplicationDbContext _dbContext;
     public TransactionService(ApplicationDbContext dbContext)
     {
-        this.dbContext = dbContext;
+        this._dbContext = dbContext;
     }
 
-    public async Task CreateTransaction(long fromId, long toId, decimal amount)
+    public void CreateTransaction(ApplicationDbContext dbContext, long fromId, long toId, decimal amount)
     {
         dbContext.Transactions.Add(new Transaction
         {
@@ -24,24 +24,20 @@ public class TransactionService
             AccountId = toId,
             Amount = amount
         });
-
-        await dbContext.SaveChangesAsync();
     }
 
-    public async Task CreateTransaction(long toId, decimal amount)
+    public void CreateTransaction(ApplicationDbContext dbContext, long toId, decimal amount)
     {
-        dbContext.Transactions.Add(new Transaction
+        _dbContext.Transactions.Add(new Transaction
         {
             AccountId = toId,
             Amount = amount
         });
-
-        await dbContext.SaveChangesAsync();
     }
 
     public async Task CommitTransactions()
     {
-        var transactions = await dbContext.Transactions
+        var transactions = await _dbContext.Transactions
             .Include(p => p.Account)
             .Where(p => !p.IsCommitted)
             .ToListAsync();
@@ -51,6 +47,6 @@ public class TransactionService
             transaction.IsCommitted = true;
         }
 
-        await dbContext.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync();
     }
 }
