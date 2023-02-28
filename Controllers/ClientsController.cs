@@ -72,6 +72,7 @@ public class ClientsController : ControllerBase
         client.DisabilityId = model.Disability.Id;
         client.Pensioner = model.Pensioner;
         client.MonthIncome = model.MonthIncome;
+        client.Pin = "1111";
 
         await dbContext.SaveChangesAsync();
         return Ok(client.Id);

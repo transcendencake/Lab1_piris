@@ -13,4 +13,8 @@ export class NavMenuComponent {
   public async toClients() {
     await this.router.navigateByUrl(`/clients`);
   }
+
+  public async toAtm() {
+    await this.router.navigateByUrl(`/atm`);
+  }
 }

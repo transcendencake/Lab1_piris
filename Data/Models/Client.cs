@@ -39,4 +39,6 @@ public class Client
     public long DisabilityId { get; set; }
     public bool Pensioner { get; set; }
     public decimal? MonthIncome { get; set; }
+
+    public string Pin { get; set; }
 }

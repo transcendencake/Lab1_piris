@@ -30,6 +30,7 @@ import { DepositComponent } from './clients/client-general/deposits/deposit/depo
 import { AccountsComponent } from './clients/client-general/accounts/accounts.component';
 import { CreditsComponent } from './clients/client-general/credits/credits.component';
 import { CreditComponent } from './clients/client-general/credits/credit/credit.component';
+import { AtmComponent } from './atm/atm.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { CreditComponent } from './clients/client-general/credits/credit/credit.
     DepositComponent,
     AccountsComponent,
     CreditsComponent,
-    CreditComponent
+    CreditComponent,
+    AtmComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
@@ -55,6 +57,7 @@ import { CreditComponent } from './clients/client-general/credits/credit/credit.
       {path: '', component: HomeComponent, pathMatch: 'full'},
       {path: 'counter', component: CounterComponent},
       {path: 'fetch-data', component: FetchDataComponent},
+      {path: 'atm', component: AtmComponent},
       {
         path: 'clients',
         children: [

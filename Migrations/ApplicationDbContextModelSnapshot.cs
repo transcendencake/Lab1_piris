@@ -200,6 +200,10 @@ namespace Lab1piris.Migrations
                     b.Property<bool>("Pensioner")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Pin")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PlaceOfWork")
                         .HasColumnType("nvarchar(max)");
 

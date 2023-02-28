@@ -1,0 +1,83 @@
+<div *ngIf="currActionType === actionTypes.AuthAccount">
+  <h2>Аутентификация</h2>
+  <form #form="ngForm" >
+    <mat-form-field>
+      <mat-label>Номер счёта</mat-label>
+      <input type="text"
+             matInput
+             required
+             name="accountNumber"
+             #contractNumberNgModel="ngModel"
+             [(ngModel)]="accountNumber">
+      <mat-error *ngIf="contractNumberNgModel.errors?.required">Это поле обязательно</mat-error>
+    </mat-form-field>
+    <div>
+      <button mat-raised-button color="primary" [disabled]="!form.valid " (click)="accountEntered()">Далее
+      </button>
+    </div>
+  </form>
+</div>
+<div *ngIf="currActionType === actionTypes.AuthPin">
+  <h2>Аутентификация</h2>
+  <form #form="ngForm" >
+    <mat-form-field>
+      <mat-label>PIN</mat-label>
+      <input type="text"
+             matInput
+             required
+             name="pin"
+             #pinNgModel="ngModel"
+             [(ngModel)]="pin">
+      <mat-error *ngIf="pinNgModel.errors?.required">Это поле обязательно</mat-error>
+    </mat-form-field>
+    <div>
+      <button mat-raised-button color="primary" [disabled]="!form.valid " (click)="pinEntered()">Далее
+      </button>
+    </div>
+  </form>
+</div>
+<div *ngIf="currActionType === actionTypes.SelectActions">
+  <h2>Меню</h2>
+  <ul>
+    <li>
+      <a mat-button (click)="balanceSelected()">Баланс</a>
+    </li>
+    <li>
+      <a mat-button (click)="withdrawSelected()">Снять наличные</a>
+    </li>
+  </ul>
+  <button mat-raised-button (click)="exitSelected()">Выйти
+  </button>
+</div>
+<div *ngIf="currActionType === actionTypes.Balance">
+  <h2>Баланс:</h2>
+  <h3>Ваш баланс - {{balance}}</h3>
+  <div>
+    <button mat-raised-button (click)="menuSelected()">В меню
+    </button>
+    <button mat-raised-button (click)="exitSelected()">Выйти
+    </button>
+  </div>
+</div>
+<div *ngIf="currActionType === actionTypes.Withdraw">
+  <h2>Снятие наличных</h2>
+  <form #form="ngForm" >
+    <mat-form-field>
+      <mat-label>Сумма</mat-label>
+      <input type="text"
+             matInput
+             required
+             name="withdrawAmount"
+             #withdrawAmountNgModel="ngModel"
+             [(ngModel)]="withdrawAmount">
+      <mat-error *ngIf="withdrawAmountNgModel.errors?.required">Это поле обязательно</mat-error>
+    </mat-form-field>
+    <div>
+      <button mat-raised-button color="primary" [disabled]="!form.valid " (click)="withdrawAmountEntered()">Далее
+      </button>
+    </div>
+  </form>
+</div>
+<div *ngIf="currActionType === actionTypes.Blocked">
+  <h3>Вы совершили 3 попытки аутентификации с неверными данными. Ваша карта съедена</h3>
+</div>
